@@ -1,0 +1,15 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshrc.nocontainer"
+
+# .zshrc.nocontainer was created for non-container environment
+
+# ==============================================================================
+# Paths
+# ==============================================================================
+
+### nvm
+export NVM_DIR="$HOME/.nvm"
+# This loads nvm
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"

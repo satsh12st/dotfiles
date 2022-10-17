@@ -1,0 +1,11 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshrc.darwin"
+
+# .zshrc.darwin was created for macOS environment
+
+# ==============================================================================
+# Aliases
+# ==============================================================================
+
+### ls
+alias ls="ls -FG"
