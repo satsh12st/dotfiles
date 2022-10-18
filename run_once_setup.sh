@@ -11,7 +11,7 @@ KERNEL="$(uname -r)" # Get kernel release
 IS_LINUX="$(if [ "$UNAME" = "Linux" ] ; then echo "true" ; else echo "false" ; fi)"
 IS_DARWIN="$(if [ "$UNAME" = "Darwin" ] ; then echo "true" ; else echo "false" ; fi)" # macOS
 IS_WSL="$(if echo "$KERNEL" | grep -iq "microsoft" ; then echo "true" ; else echo "false" ; fi)"
-IS_REMOTE_CONTAINER="${REMOTE_CONTAINER:-"false"}"
+IS_REMOTE_CONTAINER="${REMOTE_CONTAINERS:-"false"}"
 
 # ==============================================================================
 # If this script is running on a non-supported OS
