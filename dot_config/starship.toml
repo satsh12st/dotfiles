@@ -15,6 +15,9 @@ format = "via [$symbol]($style)"
 [cobol]
 format = "via [$symbol]($style)"
 
+[container]
+disabled = true
+
 [crystal]
 format = "via [$symbol]($style)"
 
