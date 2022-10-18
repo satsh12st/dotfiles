@@ -1,0 +1,6 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/chezmoi/chezmoi.toml"
+
+[edit]
+  command = "code"
+  args = ["--wait"]
