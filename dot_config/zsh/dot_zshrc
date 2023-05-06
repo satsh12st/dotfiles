@@ -1,0 +1,101 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshrc"
+
+# If you need to override .zshrc for local,
+# you can edit .zshrc.local in $HOME/.config/zsh/
+
+# ==============================================================================
+# ZSH options
+# ==============================================================================
+
+### Language
+export LANG="C.UTF-8"
+setopt PRINT_EIGHT_BIT
+
+### Editor
+export EDITOR="code"
+
+### Change directory
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+
+DIRSTACKSIZE=100
+
+### Completion
+autoload -Uz compinit && compinit
+
+### History
+HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTSIZE=1000
+export SAVEHIST=10000
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+
+# ==============================================================================
+# Zinit
+# ==============================================================================
+
+### Load Zinit plugin manager
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# ==============================================================================
+# Plugins
+# ==============================================================================
+
+### Completion
+zinit ice wait lucid; zinit light zsh-users/zsh-completions
+
+### Suggest
+zinit light zsh-users/zsh-autosuggestions
+
+### Peco's history search
+zinit ice wait lucid; zinit light jimeh/zsh-peco-history
+
+### Syntax highlight
+zinit ice wait lucid; zinit light zdharma-continuum/fast-syntax-highlighting
+
+### Set terminal and tab text's title
+zinit ice wait lucid; zinit light trystan2k/zsh-tab-title
+# ZSH_TAB_TITLE_PREFIX="$USER@$HOST - "
+
+# ==============================================================================
+# Aliases
+# ==============================================================================
+
+### rm
+alias rm="rm -i"
+
+### mv
+alias mv="mv -i"
+
+### cp
+alias cp="cp -i"
+
+# ==============================================================================
+# Paths
+# ==============================================================================
+
+### Starship
+eval "$(starship init zsh)"
+
+# ==============================================================================
+# Load added .zshrc for each environment
+# ==============================================================================
+
+# OS dependent
+OS_NAME="$(uname | tr "[:upper:]" "[:lower:]")"
+[ -f "$ZDOTDIR/.zshrc.$OS_NAME" ] && source "$ZDOTDIR/.zshrc.$OS_NAME"
+
+# WSL Support
+IS_WSL="$(if uname -r | grep -iq "microsoft" ; then echo "true" ; else echo "false" ; fi)"
+$IS_WSL && [ -f "$ZDOTDIR/.zshrc.wsl" ] && source "$ZDOTDIR/.zshrc.wsl"
+
+# My customize for local
+[ -f "$ZDOTDIR/.zshrc.local" ] && source "$ZDOTDIR/.zshrc.local"

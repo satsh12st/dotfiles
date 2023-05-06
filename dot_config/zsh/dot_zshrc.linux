@@ -1,0 +1,14 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshrc.linux"
+
+# .zshrc.linux was created for Linux environment
+
+# ==============================================================================
+# Aliases
+# ==============================================================================
+
+### ls
+alias ls="ls -F --color=auto"
+
+### Open folder in file manager
+alias open="(){xdg-open ${1-~}}"

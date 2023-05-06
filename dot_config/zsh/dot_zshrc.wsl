@@ -1,0 +1,24 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshrc.wsl"
+
+# .zshrc.wsl was created for Linux with WSL2 environment
+
+# ⚠️ In the WSL2 environment, you will need to pass some of the Windows envrionment variables to Linux via $WSLENV
+#
+# These are required...
+# - $SystemRoot
+# - $USERPROFILE
+
+# ==============================================================================
+# Aliases
+# ==============================================================================
+
+### Open folder in file manager
+alias open="(){$SystemRoot/explorer.exe $(wslpath -w ${1-~})}"
+
+# ==============================================================================
+# Paths for WSL collaboration
+# ==============================================================================
+
+### Visual Studio Code
+export PATH=$PATH:"$USERPROFILE/AppData/Local/Programs/Microsoft VS Code/bin"

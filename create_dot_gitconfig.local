@@ -1,0 +1,11 @@
+# If you need to customize git config for local, edit this file
+# Customize to your needs...
+
+[user]
+  # name = 
+  # email = 
+  # signingkey = 
+[credential]
+  # helper = store # Linux
+  # helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe # WSL
+  # helper = osxkeychain # macOS

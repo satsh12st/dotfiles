@@ -1,0 +1,38 @@
+# ⚠️ DO NOT CHANGE THIS FILE!
+# If you need to edit this file, execute "chezmoi edit ~/.config/zsh/.zshenv"
+
+# If you need to override .zshenv for local,
+# you can edit .zshenv.local in $HOME/.config/zsh/
+
+# ==============================================================================
+# ZSH options
+# ==============================================================================
+
+### Ensure path arrays do not contain duplicates
+typeset -gU path
+
+# Set ZSH config files directory
+export ZDOTDIR="$HOME/.config/zsh"
+
+# ==============================================================================
+# Paths
+# ==============================================================================
+
+### nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
+### Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# ==============================================================================
+# Load added .zshenv for each environment
+# ==============================================================================
+
+# OS dependent
+OS_NAME="$(uname | tr "[:upper:]" "[:lower:]")"
+[ -f "$ZDOTDIR/.zshenv.$OS_NAME" ] && source "$ZDOTDIR/.zshenv.$OS_NAME"
+
+# My customize for local
+[ -f "$ZDOTDIR/.zshenv.local" ] && source "$ZDOTDIR/.zshenv.local"
