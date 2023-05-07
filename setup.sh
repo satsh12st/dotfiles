@@ -55,6 +55,7 @@ cd ~ \
 sudo apt update > /dev/null 2>&1 \
   && sudo apt upgrade -y > /dev/null 2>&1 \
   && sudo apt install -y \
+    build-essential \
     curl\
     git \
     peco \
