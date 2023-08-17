@@ -82,6 +82,16 @@ alias cp="cp -i"
 # Other
 # ==============================================================================
 
+### SSH Agent
+SSH_KEY_LIFETIME=3600
+SSH_AGENT_FILE="$HOME/.ssh-agent"
+
+[ -f "$SSH_AGENT_FILE" ] && source "$SSH_AGENT_FILE" > /dev/null 2>&1
+if [ $(ps -ef | grep "ssh-agent" | grep -v "grep" | wc -l ) -eq 0 ] ; then
+  ssh-agent -t "$SSH_KEY_LIFETIME" > "$SSH_AGENT_FILE"
+  source $SSH_AGENT_FILE > /dev/null 2>&1
+fi
+
 ### GPG Key
 export GPG_TTY=$(tty)
 
