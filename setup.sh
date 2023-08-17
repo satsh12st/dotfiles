@@ -102,11 +102,15 @@ npm install -g npm > /dev/null 2>&1 \
   && echo "👌 | npm has been upgraded!" \
   || echo "⚠️ | npm upgrade failed"
 
+### Install Deno
+curl -fsSL https://deno.land/x/install/install.sh | sh > /dev/null 2>&1 \
+  && echo "👌 | Deno has been Installed!" \
+  || echo "⚠️ | Deno installation failed"
+
 ### Install Rustup
 curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y > /dev/null 2>&1 \
   && echo "👌 | Rustup has been Installed!" \
   || echo "⚠️ | Rustup installation failed"
-
 
 ### Apply dotfiles
 chezmoi apply --force > /dev/null 2>&1 \
