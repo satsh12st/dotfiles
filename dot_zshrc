@@ -1,0 +1,132 @@
+# ==============================================================================
+# ZSH インタラクティブシェル設定
+# ==============================================================================
+
+# 表示設定
+setopt PRINT_EIGHT_BIT  # 8ビット文字を正しく表示する
+setopt COMBINING_CHARS  # 結合文字を正しく表示する
+
+# キーバインド
+bindkey -e  # Emacsのキーバインドを使用
+
+# 履歴
+HISTFILE="$HOME/.zsh_history" # 履歴ファイルの場所
+HISTSIZE=10000                # メモリに保存する履歴の数
+SAVEHIST=100000               # 履歴ファイルに保存するコマンドの数
+setopt SHARE_HISTORY          # 複数のターミナルで履歴を共有
+setopt EXTENDED_HISTORY       # 履歴にタイムスタンプを記録する
+setopt HIST_IGNORE_ALL_DUPS   # 重複するコマンドを履歴に残さない
+setopt HIST_IGNORE_SPACE      # 先頭にスペースがあるコマンドを履歴に残さない
+setopt HIST_REDUCE_BLANKS     # 余分な空白を削除して履歴に保存
+
+# ディレクトリ移動
+DIRSTACKSIZE=1000         # ディレクトリスタックのサイズ
+setopt AUTO_CD            # cdコマンドなしでディレクトリ移動
+setopt AUTO_PUSHD         # 移動履歴を保存
+setopt AUTO_NAME_DIRS     # ディレクトリを名前で補完
+setopt PUSHD_IGNORE_DUPS  # 重複するディレクトリを移動履歴に残さない
+
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook # ディレクトリ移動の履歴管理関数を読み込み
+add-zsh-hook chpwd chpwd_recent_dirs  # ディレクトリ移動の履歴管理を有効化
+zstyle 'chpwd:*' recent-dirs-max 1000 # ディレクトリ移動の履歴数を設定
+zstyle 'chpwd:*' recent-dirs-prune parent # ディレクトリ移動の履歴から存在しないディレクトリを削除
+
+# 補完
+setopt EXTENDED_GLOB  # 拡張表記を有効化
+setopt CORRECT        # タイプミスを自動修正
+autoload -Uz compinit # 補完システム関数を読み込み
+
+# .zcompdumpファイルの更新が24時間以内ならセキュリティチェックをスキップして高速化
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+
+zstyle ':completion:*' menu select                      # 補完候補を選択式にする
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # 補完候補の色付け
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}' # 大文字小文字を区別しない補完
+
+# ==============================================================================
+# エイリアス
+# ==============================================================================
+
+# グローバルエイリアス
+alias -g G='| grep'  # コマンドの出力をgrepで絞り込む
+alias -g S='| less'  # コマンドの出力をlessでページングする
+alias -g P='| peco'  # コマンドの出力をpecoで選択する
+
+# ls コマンド
+if [[ "$OSTYPE" == 'darwin'* ]]; then
+  alias ls='ls -G'            # macOSで色付き表示を有効にする
+else
+  alias ls='ls --color=auto'  # Linuxで色付き表示を有効にする
+fi
+
+alias ll='ls -l'
+alias la='ls -la'
+
+# 事故防止
+alias rm='rm -i'  # 削除前に確認
+alias cp='cp -i'  # 上書き前に確認
+alias mv='mv -i'  # 上書き前に確認
+
+# その他
+alias tree='tree -C'  # ディレクトリ構造を色付きで表示
+alias pd='popd'       # ディレクトリスタックからディレクトリを移動
+alias d='dirs -v'     # ディレクトリスタックの内容を表示
+
+# ==============================================================================
+# PECO
+# ==============================================================================
+
+# 履歴検索
+function peco-select-history() {
+  # tacコマンドを使用できない環境への対応
+  local tac
+  if $(which tac > '/dev/null'); then
+    tac='tac'
+  else
+    tac='tail -r'
+  fi
+
+  # 履歴を重複なく、逆順で表示し、pecoで絞り込む
+  BUFFER="$(history -n 1 | eval $tac | awk '!a[$0]++' | peco --query "$LBUFFER")"
+  CURSOR="$#BUFFER"
+  zle clear-screen
+}
+zle -N peco-select-hist
+zle -N peco-select-history
+bindkey '^r' peco-select-history
+
+# ディレクトリ移動履歴検索
+function peco-cdr () {
+  # cdrコマンドの出力からディレクトリを抽出し、pecoで選択する
+  local selected_dir=$(cdr -l | awk '{print $2}' | peco)
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+}
+zle -N peco-cdr
+bindkey '^f' peco-cdr
+
+
+# ==============================================================================
+# その他
+# ==============================================================================
+
+# SSHエージェント
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"  # Bitwardenをエージェントとして使用
+
+# mise ランタイムマネージャー有効化
+eval "$(mise activate zsh)"
+
+# Starship プロンプト有効化
+eval "$(starship init zsh)"
+
+# Sheldon プラグインマネージャー有効化
+eval "$(sheldon source)"
+
+# ローカル設定の読み込み
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"  # ローカル用の.zshrcファイルが存在する場合は読み込む

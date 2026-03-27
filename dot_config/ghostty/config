@@ -1,0 +1,17 @@
+# ==============================================================================
+# Ghostty 設定
+# ==============================================================================
+# - https://ghostty.org/
+
+# テーマ
+theme = dark:"Iceberg Dark", light:"Iceberg Light"
+
+# フォント
+font-family = "PlemolJP Console NF"
+font-size = 14
+
+# ウィンドウ
+window-width = 80
+window-height = 20
+window-padding-x = 4
+window-padding-y = 12

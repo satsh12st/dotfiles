@@ -1,0 +1,24 @@
+# ==============================================================================
+# Git 全体設定
+# ==============================================================================
+
+# ユーザー情報
+[user]
+	name = Shunsuke Sato
+	email = 50010258+satsh12st@users.noreply.github.com
+
+# 設定
+[core]
+	autocrlf = input    # 改行コードをLFにしてコミットする
+	safecrlf = true     # 改行コードが混在する場合は変換しない
+	editor = nvim       # 使用するエディター
+	ignorecase = false  # ファイル名の大文字・小文字を区別する
+	quotepath = false   # 文字化け防止
+
+# 初期設定
+  [init]
+    defaultBranch = main
+
+# 別ファイル読み込み
+[include]
+  path = .gitconfig.local # ローカル用設定ファイル

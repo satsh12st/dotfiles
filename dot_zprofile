@@ -1,0 +1,9 @@
+# ==============================================================================
+# ZSH ログインシェル設定
+# ==============================================================================
+
+# Homebrew 有効化 (macOSのみ)
+[[ "$OSTYPE" == 'darwin'* ]] && eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+
+# Orbstack 有効化 (macOSのみ)
+[[ "$OSTYPE" == 'darwin'* ]] && source ~/.orbstack/shell/init.zsh 2>/dev/null || :

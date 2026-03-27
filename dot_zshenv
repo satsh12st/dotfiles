@@ -1,0 +1,24 @@
+# ==============================================================================
+# ZSH 環境変数設定
+# ==============================================================================
+
+# ローケル
+export LANG='ja_JP.UTF-8'   # システム全体の言語設定
+export LC_ALL='ja_JP.UTF-8' # ローケルを全てのカテゴリに適用
+
+# エディタ
+export EDITOR='nvim' # デフォルトのエディタをNeovimに設定
+
+# パス
+export PATH="/opt/homebrew/opt/zip/bin:$PATH"   # zipコマンド (Homebrew)
+export PATH="/opt/homebrew/opt/unzip/bin:$PATH" # unzipコマンド (Homebrew)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"  # curlコマンド (Homebrew)
+
+typeset -U path PATH # パスの重複を排除
+
+# ==============================================================================
+# その他
+# ==============================================================================
+
+# ローカル設定の読み込み
+[[ -f "$HOME/.zshenv.local" ]] && source "$HOME/.zshenv.local"  # ローカル用の.zshenvファイルが存在する場合は読み込む

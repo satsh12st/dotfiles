@@ -1,0 +1,50 @@
+# ==============================================================================
+# Sheldon 設定
+# ==============================================================================
+# - https://github.com/rossmacarthur/sheldon#readme
+
+shell = "zsh" # 使用するシェル
+
+# ==============================================================================
+# テンプレート
+# ==============================================================================
+
+[templates]
+
+# 遅延読み込み
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+# ==============================================================================
+# プラグイン
+# ==============================================================================
+
+[plugins]
+
+# 遅延読み込み
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+# 補完強化
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+# サジェスト
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+use = ["{{ name }}.zsh"]
+apply = ["defer"]
+
+# シンタックスハイライト
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
+
+# エイリアスリマインダー
+[plugins.zsh-you-should-use]
+github = "MichaelAquilina/zsh-you-should-use"
+apply = ["defer"]
+
+# オート括弧閉じ
+[plugins.zsh-autopair]
+github = "hlissner/zsh-autopair"
+apply = ["defer"]
