@@ -13,6 +13,7 @@ export EDITOR='nvim' # デフォルトのエディタをNeovimに設定
 export PATH="/opt/homebrew/opt/zip/bin:$PATH"   # zipコマンド (Homebrew)
 export PATH="/opt/homebrew/opt/unzip/bin:$PATH" # unzipコマンド (Homebrew)
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"  # curlコマンド (Homebrew)
+export PATH="/usr/local/bin/:$PATH"
 
 typeset -U path PATH # パスの重複を排除
 
